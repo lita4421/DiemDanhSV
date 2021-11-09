@@ -20,6 +20,37 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        if (MainActivity.ck_login){
+            //danh sach mon hoc
+            SQLiteDiemdanh sqLite = new SQLiteDiemdanh(getApplicationContext()); // ket noi csdl
+            ArrayList<ArrayList<String>> arrmonhoc =sqLite.laymonhoc();
+            ArrayList<String> tenmonhoc ;
+            ArrayList<String> idmonhoc ;
+            tenmonhoc = arrmonhoc.get(0);
+            idmonhoc = arrmonhoc.get(1);
+
+            GridView GridViewMonhoc = (GridView)findViewById(R.id.GridView_Monhoc);
+
+            Adapter_monhoc adapter_monhoc = new Adapter_monhoc(getApplicationContext(),idmonhoc,tenmonhoc);
+            GridViewMonhoc.setAdapter(adapter_monhoc);
+
+            GridViewMonhoc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+
+                    Integer monhocID = Integer.parseInt(idmonhoc.get(i));
+
+                    Intent homeTobuoihoc = new Intent(getApplicationContext(),chitietMonhoc.class);
+                    homeTobuoihoc.putExtra("ddsv_monhoc_id",monhocID);
+                    homeTobuoihoc.putExtra("dsvs_tenmon",tenmonhoc.get(i));
+                    startActivity(homeTobuoihoc);
+                }
+            });
+        }
+
+
+
+
 
         ImageView userBtn =(ImageView) findViewById(R.id.userBtn);
         ImageView themmonBtn = (ImageView)findViewById(R.id.themmonBtn);
@@ -39,7 +70,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        SQLiteDiemdanh sqLite = new SQLiteDiemdanh(getApplicationContext());
+
         userBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,30 +88,8 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        ArrayList<ArrayList<String>> arrmonhoc =sqLite.laymonhoc();
-        ArrayList<String> tenmonhoc ;
-        ArrayList<String> idmonhoc ;
-        tenmonhoc = arrmonhoc.get(0);
-        idmonhoc = arrmonhoc.get(1);
 
 
-        GridView GridViewMonhoc = (GridView)findViewById(R.id.GridView_Monhoc);
-
-        Adapter_monhoc adapter_monhoc = new Adapter_monhoc(getApplicationContext(),idmonhoc,tenmonhoc);
-        GridViewMonhoc.setAdapter(adapter_monhoc);
-
-        GridViewMonhoc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-
-                Integer monhocID = Integer.parseInt(idmonhoc.get(i));
-
-                Intent homeTobuoihoc = new Intent(getApplicationContext(),chitietMonhoc.class);
-                homeTobuoihoc.putExtra("ddsv_monhoc_id",monhocID);
-                homeTobuoihoc.putExtra("dsvs_tenmon",tenmonhoc.get(i));
-                startActivity(homeTobuoihoc);
-            }
-        });
 
     }
 

@@ -54,7 +54,6 @@ public class SQLiteDiemdanh extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS buoihoc");
         db.execSQL("DROP TABLE IF EXISTS diemdanhsv");
         onCreate(db);
-
     }
 
     public int insertUser (String username, String password, String sdt) {
@@ -64,7 +63,7 @@ public class SQLiteDiemdanh extends SQLiteOpenHelper {
         contentValues.put("password", password);
         contentValues.put("sdt", sdt);
 
-        return (int)db.insert("users", null, contentValues);
+        return (int)db.insert("users", null, contentValues);//db.insert tra ve id
     }
     public boolean insertMonhoc ( String nameMonhoc ,int sotin ,String mamon, int user_id ,int tongso){
         SQLiteDatabase db =this.getWritableDatabase();
@@ -163,10 +162,10 @@ public class SQLiteDiemdanh extends SQLiteOpenHelper {
         }
 
     }
-    public boolean check_tktontai(String tk){
+    public boolean check_tktontai(String tk, String sdt){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select user_id from users where username = ? ", new String[] {tk});
-
+        Cursor res = db.rawQuery("select user_id from users where username = ? and sdt = ? ", new String[] {tk,sdt});
+ //
         if(res.getCount()!= 0){
             res.close();
             return true;
@@ -174,7 +173,6 @@ public class SQLiteDiemdanh extends SQLiteOpenHelper {
         else {
             res.close();
             return false;
-
         }
     }
 
@@ -355,6 +353,5 @@ public class SQLiteDiemdanh extends SQLiteOpenHelper {
         arrSinhvien.add(Camthi);
         return arrSinhvien;
     }
-
-
 }
+

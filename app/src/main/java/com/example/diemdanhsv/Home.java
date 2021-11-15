@@ -35,7 +35,6 @@ public class Home extends AppCompatActivity {
                     Intent homeTologin = new Intent(getApplicationContext(),Login.class);
                     startActivity(homeTologin);
                 }
-
             }
         });
 

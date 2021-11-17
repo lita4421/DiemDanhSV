@@ -23,10 +23,8 @@ import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 
 public class MainActivity extends AppCompatActivity {
 
-
     public  static boolean ck_login=false;
     public static int user_id=-1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +35,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(gotoHome);
 
     }
-
-
 }
